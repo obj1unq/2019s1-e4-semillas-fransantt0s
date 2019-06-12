@@ -1,0 +1,82 @@
+import semillas.*
+import parcelas.*
+import INTA.*
+describe{
+	const parcela1= new Parcelas(ancho=5,largo=5,horasDeSolPorDia=10,plantas=[])
+	const quinoa1= new Quinoa(anioDeObtencion=2001,altura=1,espacioQueOcupa=1,numeroDeHorasDeSol=8)
+	const menta= new Menta(anioDeObtencion=2002,altura=1,espacioQueOcupa=1)
+	const parcela2= new Parcelas(ancho=5,largo=5,horasDeSolPorDia=10,plantas=[])
+	const quinoa2= new Quinoa(anioDeObtencion=2001,altura=1,espacioQueOcupa=1,numeroDeHorasDeSol=9)
+	const quinoa3= new Quinoa(anioDeObtencion=2001,altura=1,espacioQueOcupa=1,numeroDeHorasDeSol=10)
+	const sojatransgenica = new  SojaTransgenica(anioDeObtencion=2002,altura=3,espacioQueOcupa=1)
+	const parcela3= new Parcelas(ancho=5,largo=5,horasDeSolPorDia=9,plantas=[])
+	const parcela4= new Parcelas(ancho=5,largo=5,horasDeSolPorDia=5,plantas=[])
+	const sojatransgenica2 = new  SojaTransgenica(anioDeObtencion=2002,altura=3,espacioQueOcupa=1)
+	const menta2= new Menta(anioDeObtencion=2002,altura=1,espacioQueOcupa=1)
+	const menta3= new Menta(anioDeObtencion=2002,altura=1,espacioQueOcupa=1)
+	const menta4= new Menta(anioDeObtencion=2002,altura=1,espacioQueOcupa=1)
+	const sojatransgenica3 = new  SojaTransgenica(anioDeObtencion=2002,altura=3,espacioQueOcupa=1)
+	const sojatransgenica4 = new  SojaTransgenica(anioDeObtencion=2002,altura=3,espacioQueOcupa=1)
+	const sojatransgenica5 = new  SojaTransgenica(anioDeObtencion=2002,altura=3,espacioQueOcupa=1)
+	const menta5= new Menta(anioDeObtencion=2002,altura=1,espacioQueOcupa=1)
+
+test "la menta no esFuerte"{
+	assert.notThat(menta.esFuerte())
+}
+
+test "el espacio que ocupa la menta es 3"{
+	assert.equals(3,menta.espacioQueOcupa())
+}
+
+test " la sojatransgenica soporta 9 horas bajo el sol"{
+	assert.equals(9,sojatransgenica.horasDeSolQueTolera())
+}
+
+test "la menta da semillas "{
+	assert.that(menta.daSemillas())
+}
+
+
+test " la parcela 1 es ideal para la menta" {
+
+	assert.that(menta.parcelaIdeal(parcela1))
+	}
+test "la parcela 1 tiene 2 horasMasDeSol por dia de las que tolera la quinoa"{
+	
+	assert.that(parcela1.dosHorasMasDeLasQueTolera(quinoa1))
+}
+
+test "da error porque no puedo plantar la Quinoa"{
+	parcela1.plantarPlanta(quinoa1)
+	assert.that(parcela1.tieneComplicaciones())
+}
+
+test " la parcela 2  tiene complicaciones"{
+	parcela2.plantarPlanta(quinoa2)
+	assert.that(parcela2.tieneComplicaciones())
+}
+
+test "la parcela 4 es la mas autosustentable"{
+	parcela4.plantarPlanta(menta)
+	parcela3.plantarPlanta(sojatransgenica)
+	parcela4.plantarPlanta(menta2)
+	parcela4.plantarPlanta(menta3)
+	parcela4.plantarPlanta(menta4)
+	parcela4.plantarPlanta(menta5)
+	
+	parcela3.plantarPlanta(sojatransgenica2)
+	parcela3.plantarPlanta(sojatransgenica3)
+	parcela3.plantarPlanta(sojatransgenica4)
+	parcela3.plantarPlanta(sojatransgenica5)
+	
+	iNTA.agregarParcela(parcela3)
+	iNTA.agregarParcela(parcela4)
+	assert.equals(parcela4,iNTA.masAutoSustentable())
+	
+	
+		
+	
+}
+
+
+}
